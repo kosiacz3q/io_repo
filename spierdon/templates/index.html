@@ -1,6 +1,10 @@
-<html>
-<body>
-Witaj.
+{% extends "base.html" %}
+{% block title %}Welcome{% endblock %}
+{% block content %}
+<div class="message">
+<h1>Hello</h1>
 <a href="{% url 'logout' %}">Logout</a>
-</body>
+</div>
+{% endblock %}
+
 
