@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 
 
 @login_required
 def index(request):
-	return render(request, 'index.html')
-
+    """Return main view of spierdon app. Works only if user is logged.
+        :param request: HttpRequest object
+        :returns: HttpResponse object with a combined template
+    """
+    return render(request, 'index.html')
