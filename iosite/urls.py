@@ -15,22 +15,24 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-
+from django.views.generic import RedirectView
+import django.contrib.auth.views
 
 urlpatterns = [
 		url(r'^admin/', admin.site.urls),
-		url(r'^spierdon/', include('spierdon.urls', namespace='spierdon')),
-		url(r'^accounts/login/$', 'django.contrib.auth.views.login', name="login"),
-		url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', name='logout'),
+		url(r'^spierdon/', include('spierdon.urls', namespace='spierdon'), name='main'),
+		url(r'^$', RedirectView.as_view(url='/spierdon/')),
+		url(r'^accounts/login/$', django.contrib.auth.views.login, name="login"),
+		url(r'^accounts/logout/$', django.contrib.auth.views.logout, name='logout'),
 		url(r'^accounts/password/reset/$', 
-			'django.contrib.auth.views.password_reset', 
+			django.contrib.auth.views.password_reset, 
 			{'post_reset_redirect' : '/accounts/password/reset/done/'},
 			name="password_reset"),
 		url(r'^accounts/password/reset/done/$',
-			'django.contrib.auth.views.password_reset_done'),
+			django.contrib.auth.views.password_reset_done),
 		url(r'^accounts/password/reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', 
-			'django.contrib.auth.views.password_reset_confirm', 
+			django.contrib.auth.views.password_reset_confirm, 
 			{'post_reset_redirect' : '/accounts/password/done/'}),
 		url(r'^accounts/password/done/$', 
-			'django.contrib.auth.views.password_reset_complete'),
+			django.contrib.auth.views.password_reset_complete),
 		]
