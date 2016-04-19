@@ -120,6 +120,7 @@ a:hover, a:active {
 
     button {
       margin-top: 20px;
+      margin-bottom: 20px;
       background: $button-background-color;
       border: none;
       font-size: 1.6em;
