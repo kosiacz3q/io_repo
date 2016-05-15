@@ -157,6 +157,29 @@ a:hover, a:active {
   transform: translateY(-3px);
 }
 
+.horizontal-menu {
+  width: 100%;
+  height: auto;
+}
+
+.horizontal-menu-table {
+  position: relative;
+  width: 100%;
+  height: auto;
+  border-collapse: collapse;
+}
+
+.menu-option {
+  width: 25%;
+  text-align: center;
+  background-color: lightslategray;
+}
+
+.menu-option:hover, a:active {
+  background-color: #8D8B87;
+}
+
+
 /* Large Devices, Wide Screens */
 
 @media only screen and (max-width : 1500px) {

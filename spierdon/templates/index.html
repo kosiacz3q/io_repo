@@ -1,17 +1,26 @@
 {% extends "base.html" %}
 {% block title %}Welcome{% endblock %}
 {% block content %}
-<div class="message">
-    <h1>Hello, {{ user.username }}</h1>
-    <a href="{% url 'auth_logout' %}">Logout</a>
-    <a href="{% url 'auth_password_change' %}">Edit password</a>
-</div>
-<div class="overview">
-    <p>Level {{ spierdon.level }} (exp: {{ spierdon.exp }})</p>
-    <a href="{% url 'spierdon:rank' %}">Rank</a>
-    <a href="">Challenges</a>
-    <a href="">Stats</a>
-</div>
+
+    <div class="message">
+        <h1>Hello, {{ user.name }}</h1>
+        <a href="{% url 'auth_logout' %}">Logout</a>
+        <a href="pass">Edit password</a>
+    </div>
+
+    <div class="overview">
+        <p>Level {{ spierdon.level }} (exp: {{ spierdon.exp }})</p>
+    </div>
+
+    <div id="horizontal-menu">
+        <table id="horizontal-menu-table">
+            <tr><label class="menu-option">Overview</label></tr>
+            <tr><label class="menu-option">Challenges</label></tr>
+            <tr><label class="menu-option">Completed</label></tr>
+            <tr><label class="menu-option">Ranking</label></tr>
+        </table>
+    </div>
+    
 {% endblock %}
 
 
