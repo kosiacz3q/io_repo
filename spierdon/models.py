@@ -2,6 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from math import log, floor
+import os
 
 class SpierdonUser(models.Model):
     user = models.OneToOneField(User)
@@ -32,6 +33,10 @@ class Challenge(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
     exp = models.IntegerField(null=False, default=10)
+    min_level = models.IntegerField(null=False, default=0)
+    max_level = models.IntegerField(null=False, default=9999)
+    picture = models.ImageField(upload_to='spierdom/', default='spierdom/challenge.jpg')
+
 
     def __str__(self):
         return "%s (exp: %d)" % (self.name, self.exp)

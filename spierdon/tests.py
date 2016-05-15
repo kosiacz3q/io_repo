@@ -33,3 +33,6 @@ class SpierdonUserTest(TestCase):
         with self.assertRaises(ValidationError):
             level = sUser.get_level()
 
+
+
+
