@@ -1,6 +1,7 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-
+from math import log, floor
 
 class SpierdonUser(models.Model):
     user = models.OneToOneField(User)
@@ -8,7 +9,16 @@ class SpierdonUser(models.Model):
     exp = models.IntegerField(null=False, default=0)
 
     def get_level(self):
-        return null
+        if self.exp < 0:
+            raise ValidationError(
+                ('%(value) is less than 0'),
+                params={'value': self.exp}
+            )
+        first_level_exp = 50
+        temp = self.exp / first_level_exp
+        temp = log(temp, 1.1)
+        temp = floor(temp)
+        return temp
 
     def __str__(self):
         """
