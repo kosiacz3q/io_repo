@@ -35,7 +35,7 @@ class Challenge(models.Model):
     exp = models.IntegerField(null=False, default=10)
     min_level = models.IntegerField(null=False, default=0)
     max_level = models.IntegerField(null=False, default=9999)
-    picture = models.ImageField(upload_to='spierdon/', default='spierdom/challenge.jpg')
+    picture = models.ImageField(upload_to='spierdon/static/images/', default='spierdon/static/spierdon/challenge.jpg')
 
 
     def __str__(self):
