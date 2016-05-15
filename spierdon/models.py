@@ -10,6 +10,7 @@ class SpierdonUser(models.Model):
     user = models.OneToOneField(User)
     # level = models.IntegerField(null=False, default=0)
     exp = models.IntegerField(null=False, default=0)
+    public_level = models.BooleanField(default=False)
 
     @property
     def level(self):

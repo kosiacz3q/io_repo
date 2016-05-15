@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
+from .models import SpierdonUser
 
 
 @login_required
@@ -9,8 +10,15 @@ def index(request):
         :returns: HttpResponse object with a combined template
     """
     # return render(request, 'index.html')
-    return render_to_response("index.html",
-                              {
-                                  'user': request.user,
-                                  'spierdon': request.user.spierdonuser,
-                              })
+    return render_to_response("index.html", {
+        'user': request.user,
+        'spierdon': request.user.spierdonuser,
+    })
+
+
+@login_required
+def rank(request):
+    return render_to_response("rank.html", {
+        "items": SpierdonUser.objects.order_by("-exp"),
+        "has_public": request.user.spierdonuser.public_level,
+    })
