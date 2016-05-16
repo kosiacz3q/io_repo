@@ -13,6 +13,9 @@ class SpierdonUser(models.Model):
 
     @property
     def level(self):
+        """
+        Calculates spierdon's level based on experience value.
+        """
         if self.exp < 0:
             raise ValidationError(
                 ('%(value) is less than 0'),
@@ -30,15 +33,17 @@ class SpierdonUser(models.Model):
 
     def __str__(self):
         """
-        Returns string representation of SpierdonUser object.
-        :return: string contains username and user level
+        Return string representation of SpierdonUser object.
         """
         return self.user.__str__() + ' ' + self.level.__str__() + ' lvl'
 
 
 def create_user_profile(sender, instance, created, **kwargs):
+    """
+    Create SpierdonUser object associated with newly created User.
+    """
     if created:
-        profile, created = SpierdonUser.objects.get_or_create(user=instance)
+        _, _ = SpierdonUser.objects.get_or_create(user=instance)
 
 
 post_save.connect(create_user_profile, sender=User)
@@ -53,6 +58,9 @@ class Challenge(models.Model):
     picture = models.ImageField(upload_to='spierdon/static/images/', default='spierdon/static/spierdon/challenge.jpg')
 
     def __str__(self):
+        """
+        Return the string representation of Challenge object.
+        """
         return "%s (exp: %d)" % (self.name, self.exp)
 
 
@@ -62,4 +70,7 @@ class UserActiveChallenge(models.Model):
     completed = models.BooleanField(default=False)
 
     def __str__(self):
+        """
+        Return the string representation of UserActiveChallenge object.
+        """
         return "%s %s (completed: %s)" % (self.user, self.challenge, self.completed)
