@@ -4,7 +4,7 @@
 <div class="newChallenge">
     <H1>Select a new challenge</H1>
 
-    <table>
+    <table id="one-column-emphasis">
         <tr>
             <th>Add Challenge</th>
             <th>Name</th>
@@ -14,11 +14,11 @@
         </tr>
         {% for item in items %}
         <tr>
-            <th><a href="">+</a></th>
-            <th>{{ item.name }}</th>
-            <th>{{ item.description }}</th>
-            <th>{{ item.exp }}</th>
-            <th>{{ item.picture }}</th>
+            <td><a href="">+</a></td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.exp }}</td>
+            <td>{{ item.picture }}</td>
         </tr>
         {% endfor %}
     </table>
