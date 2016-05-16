@@ -2,20 +2,22 @@
 {% block title %}Ranking{% endblock %}
 {% block content %}
 {% if has_public %}
-<table>
-    <tr>
-        <th>Nr</th>
-        <th>Name</th>
-        <th>Level</th>
-    </tr>
-    {% for item in items %}
-    <tr>
-        <th>{{ forloop.counter }}</th>
-        <th>{{ item.user.username }}</th>
-        <th>{{ item.level }}</th>
-    </tr>
-    {% endfor %}
-</table>
+<div class="ranking">
+    <table id="one-column-emphasis">
+        <tr>
+            <th>Nr</th>
+            <th>Name</th>
+            <th>Level</th>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ item.user.username }}</td>
+            <td>{{ item.level }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% else %}
 <p>Unfortunately, current ranking is available only for users who published their level.</p>
 {% endif %}
