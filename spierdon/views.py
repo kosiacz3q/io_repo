@@ -1,10 +1,9 @@
 from django.shortcuts import render_to_response, get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import SpierdonUser, Challenge, UserActiveChallenge
+from .models import SpierdonUser, Challenge, UserActiveChallenge, ChallangeForm
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
-from models import ChallangeForm, Challenge
 
 @login_required
 def index(request):
@@ -32,6 +31,8 @@ def index(request):
         'spierdon': spierdonUser,
         'user_challenges': user_challenges,
         'user_completed_challenges': user_completed_challenges,
+        'ranking': SpierdonUser.objects.order_by("-exp")[:5],
+        'has_public': request.user.spierdonuser.public_level,
         },
         RequestContext(request))
 
