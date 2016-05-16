@@ -130,3 +130,6 @@ if DEBUG:
 ACCOUNT_ACTIVATION_DAYS=7
 
 LOGIN_REDIRECT_URL = '/spierdon'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL='/media/'

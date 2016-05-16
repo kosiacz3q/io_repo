@@ -80,6 +80,9 @@ def add_challenge(request):
         if form.is_valid():
             try:
                 form.save()
+                # challenge = form.save(commit=False)
+                # challenge.picture = form.cleaned_data['picture']
+                # challenge.save()
                 return HttpResponseRedirect('/')
             except:
                 pass
