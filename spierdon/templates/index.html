@@ -65,7 +65,7 @@
 
     <div class="ranking-sector">
         <div class="main-page-sector">
-            <table>
+            <table id="one-column-emphasis">
                 <tr>
                     <th>Nr</th>
                     <th>Name</th>
@@ -73,13 +73,13 @@
                 </tr>
                 {% for item in ranking %}
                 <tr>
-                    <th>{{ forloop.counter }}</th>
+                    <td>{{ forloop.counter }}</td>
                     {% if has_public %}
-                    <th>{{ item.user.username }}</th>
+                    <td>{{ item.user.username }}</td>
                     {% else %}
-                    <th>-</th>
+                    <td>-</td>
                     {% endif %}
-                    <th>{{ item.level }}</th>
+                    <td>{{ item.level }}</td>
                 </tr>
                 {% endfor %}
             </table>

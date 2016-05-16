@@ -93,7 +93,7 @@ $(document).ready(function () {
         var active_section = overview_sector;
 
         if (challenges_sector.css('display') !== 'none') {
-            active_section = ranking_sector;
+            active_section = challenges_sector;
         }
          if (completed_sector.css('display') !== 'none') {
             active_section = completed_sector;
