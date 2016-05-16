@@ -64,10 +64,12 @@ div.register label {
 
 div.newChallenge {
     text-align: center;
+    background-color: rgba(147, 160, 165, .5);
+    padding: 15px;
 }
 
 a:link, a:visited {
-    background-color: #B0B0B0;
+    background-color: #909090;
     color: white;
     padding: 4px 10px;
     text-align: center;
@@ -76,7 +78,7 @@ a:link, a:visited {
 }
 
 a:hover, a:active {
-    background-color: #8D8D8D;
+    background-color: #4D4D4D;
 }
 
 .login {
@@ -297,8 +299,14 @@ a:hover, a:active {
   }
 }
 
+h1{
+  text-align:center;
+}
+
 div.ranking {
     text-align: center;
+    background-color: rgba(147, 160, 165, .5);
+    padding: 15px;
 }
 
 #one-column-emphasis
