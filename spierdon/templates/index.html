@@ -28,12 +28,18 @@
     <div class="challenges-sector">
         <div class="main-page-sector">
             <p>challenges</p>
-            {% for user_challenge in user_challenges %}
-                <div class="challenge-block">
-                    <p>{{ user_challenge.name }}</p>
-                    <p>{{ user_challenge.exp }}</p>
-                    <p>{{ user_challenge.description }}</p>
-                </div>
+
+             {% for user_challenge in user_challenges %}
+                <form action="{% url 'spierdon:complete_challenge' user_challenge.id %}" method="post">
+                {% csrf_token %}
+                        <div class="challenge-block">
+                            <p>{{ user_challenge.name }}</p>
+                            <p>{{ user_challenge.exp }}</p>
+                            <p>{{ user_challenge.description }}</p>
+                        </div>
+
+                        <input type="submit" value="Complete" />
+                </form>
             {% endfor %}
         </div>
     </div>
@@ -41,6 +47,17 @@
     <div class="completed-sector">
         <div class="main-page-sector ">
             <p>completed</p>
+
+            {% for user_completed_challenge in user_completed_challenges %}
+
+                <div class="challenge-block">
+                    <p>{{ user_completed_challenge.name }}</p>
+                    <p>{{ user_completed_challenge.exp }}</p>
+                    <p>{{ user_completed_challenge.description }}</p>
+                </div>
+
+            {% endfor %}
+
         </div>
     </div>
 

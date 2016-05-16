@@ -1,6 +1,9 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from .models import SpierdonUser, Challenge
+from .models import SpierdonUser, Challenge, UserActiveChallenge
+from django.core.urlresolvers import reverse
+from django.template import RequestContext
 
 
 @login_required
@@ -11,15 +14,33 @@ def index(request):
     """
     # return render(request, 'index.html')
 
+
     user_challenges = Challenge.objects.filter(
         useractivechallenge__user__user__username=request.user.username,
         useractivechallenge__completed=False)
+
+    user_completed_challenges = Challenge.objects.filter(
+        useractivechallenge__user__user__username=request.user.username,
+        useractivechallenge__completed=True)
 
     return render_to_response("index.html", {
         'user': request.user,
         'spierdon': request.user.spierdonuser,
         'user_challenges': user_challenges,
-    })
+        'user_completed_challenges': user_completed_challenges,
+        },
+        RequestContext(request))
+
+
+@login_required
+def complete_challenge(request, challenge_id):
+
+    challenge_to_complete = get_object_or_404(UserActiveChallenge, challenge__pk=challenge_id)
+
+    challenge_to_complete.completed = True
+    challenge_to_complete.save()
+
+    return HttpResponseRedirect(reverse('spierdon:index'))
 
 
 @login_required
