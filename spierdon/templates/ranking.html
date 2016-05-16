@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Rank{% endblock %}
+{% block title %}Ranking{% endblock %}
 {% block content %}
 {% if has_public %}
 <table>
@@ -17,7 +17,7 @@
     {% endfor %}
 </table>
 {% else %}
-<p>Rank is available for users who published their level.</p>
+<p>Unfortunately, current ranking is available only for users who published their level.</p>
 {% endif %}
 {% endblock %}
 

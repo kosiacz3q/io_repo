@@ -55,14 +55,14 @@ def complete_challenge(request, challenge_id):
 
 
 @login_required
-def rank(request):
+def ranking(request):
     """
     Create ranking of users. Works only if logged user shares its statistics to the public.
 
     :param request: HttpRequest object
     :return: HttpResponse object with ranking dict
     """
-    return render_to_response("rank.html", {
+    return render_to_response("ranking.html", {
         "items": SpierdonUser.objects.order_by("-exp"),
         "has_public": request.user.spierdonuser.public_level,
     })
