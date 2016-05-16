@@ -8,7 +8,11 @@ class SpierdonUserTest(TestCase):
 
     def setUp(self):
         user = User.objects.create_user(username="test", email="a@a.com", password="a")
-        SpierdonUser.objects.create(user=user, exp = 500)
+        sUser = SpierdonUser.objects.get(user=user)
+        sUser.exp = 500;
+        sUser.save()
+
+
 
     def testSpierdonUserValues(self):
         user = User.objects.get(username = 'test')
@@ -23,16 +27,22 @@ class SpierdonUserTest(TestCase):
     def testSpierdonGetLevelMethod(self):
         user = User.objects.get(username='test')
         sUser = SpierdonUser.objects.get(user=user)
-        level = sUser.get_level()
+        level = sUser.level
         self.assertEqual(level, 24)
 
-    def testSpierdonGetLevelMethod(self):
+    def testSpierdonGetLevelMethodFail(self):
         user = User.objects.get(username='test')
         sUser = SpierdonUser.objects.get(user=user)
         sUser.exp = -100;
         with self.assertRaises(ValidationError):
-            level = sUser.get_level()
+            level = sUser.level
 
+
+    def testSpierdonGetLevelMethodZero(self):
+        user = User.objects.get(username='test')
+        sUser = SpierdonUser.objects.get(user=user)
+        sUser.exp = 0;
+        self.assertEqual(sUser.level, 0)
 
 
 
