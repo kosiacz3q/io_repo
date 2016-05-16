@@ -66,8 +66,8 @@ class Challenge(models.Model):
 
 
 class UserActiveChallenge(models.Model):
-    challenge = models.ForeignKey(Challenge, default=0)
-    user = models.ForeignKey(SpierdonUser, default=0)
+    challenge = models.OneToOneField(Challenge)
+    user = models.OneToOneField(SpierdonUser)
     completed = models.BooleanField(default=False)
 
     def __str__(self):
@@ -76,12 +76,6 @@ class UserActiveChallenge(models.Model):
         """
         return "%s %s (completed: %s)" % (self.user, self.challenge, self.completed)
 
-def addUserActiveChallenge(activeUser, challenge_id):
-    model = UserActiveChallenge()
-    model.challenge = Challenge.objects.get(pk=challenge_id)
-    model.user = activeUser
-    model.completed = False
-    model.save()
 
 class ChallengeForm(ModelForm):
     class Meta:
