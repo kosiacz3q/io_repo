@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response, get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import SpierdonUser, Challenge, UserActiveChallenge, ChallangeForm
+from .models import SpierdonUser, Challenge, UserActiveChallenge, ChallengeForm
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 
@@ -70,24 +70,24 @@ def ranking(request):
 
 
 @login_required
-def addChallange(request):
+def add_challenge(request):
     if request.method == 'POST':
-        form = ChallangeForm(request.POST)
+        form = ChallengeForm(request.POST)
         if form.is_valid():
             try:
                 form.save()
                 return HttpResponseRedirect('/')
             except:
                 pass
-    return render_to_response( 'addChallange.html', {'form': ChallangeForm()},
-                              context_instance=RequestContext(request))
+    return render_to_response('addChallange.html', {'form': ChallengeForm()},
+                               context_instance=RequestContext(request))
 
 @login_required
-def newChallenge(request):
+def get_challenges(request):
     return render_to_response('newChallenge.html', {
         "items": Challenge.objects.order_by("name")
     })
 
 @login_required
-def assign_challenge(request, challenge_id):
+def join_challenge(request, challenge_id):
     return HttpResponse(challenge_id)

@@ -42,7 +42,7 @@
                     </div>
                 {% endfor %}
                 {% if user_challenges.count < 5 %}
-                    <a href="newChallenge">add challange</a>
+                    <a href="{% url 'spierdon:get_challenges' %}">add challange</a>
                 {% endif %}
              </div>
         </div>
