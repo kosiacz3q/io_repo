@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Welcome{% endblock %}
+
+
+
+
 {% block content %}
 
     <div class="message">
@@ -8,19 +12,39 @@
         <a href="pass">Edit password</a>
     </div>
 
-    <div class="overview">
+    <div class="horizontal-menu">
+        <table id="horizontal-menu-table">
+            <tr><label id="menu-option-overview" class="menu-option">Overview</label></tr>
+            <tr><label id="menu-option-challenges" class="menu-option">Challenges</label></tr>
+            <tr><label id="menu-option-completed" class="menu-option">Completed</label></tr>
+            <tr><label id="menu-option-ranking" class="menu-option">Ranking</label></tr>
+        </table>
+    </div>
+
+    <div class="main-page-sector overview-sector">
         <p>Level {{ spierdon.level }} (exp: {{ spierdon.exp }})</p>
     </div>
 
-    <div id="horizontal-menu">
-        <table id="horizontal-menu-table">
-            <tr><label class="menu-option">Overview</label></tr>
-            <tr><label class="menu-option">Challenges</label></tr>
-            <tr><label class="menu-option">Completed</label></tr>
-            <tr><label class="menu-option">Ranking</label></tr>
-        </table>
+    <div class="challenges-sector">
+        <div class="main-page-sector">
+
+        <p>challenges</p>
+        </div>
     </div>
-    
+
+    <div class="completed-sector">
+        <div class="main-page-sector ">
+            <p>completed</p>
+        </div>
+    </div>
+
+    <div class="ranking-sector">
+        <div class="main-page-sector">
+        <p>ranking</p>
+        </div>
+    </div>
+
+
 {% endblock %}
 
 

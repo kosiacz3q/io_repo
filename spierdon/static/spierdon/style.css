@@ -47,6 +47,7 @@ div.message {
     vertical-align: middle;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 a:link, a:visited {
@@ -158,8 +159,11 @@ a:hover, a:active {
 }
 
 .horizontal-menu {
+  position: relative;
   width: 100%;
   height: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .horizontal-menu-table {
@@ -177,6 +181,16 @@ a:hover, a:active {
 
 .menu-option:hover, a:active {
   background-color: #8D8B87;
+}
+
+.main-page-sector {
+  width: 100%;
+  height: 100px;
+  background-color: lightslategray;
+  position: relative;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 
