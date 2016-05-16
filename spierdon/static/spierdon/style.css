@@ -193,12 +193,15 @@ a:hover, a:active {
 
 .menu-option {
   width: 25%;
+  height: 30px;
+  font-size: 19px;
+  vertical-align: middle;
   text-align: center;
-  background-color: lightslategray;
+  background-color: rgba(147, 160, 165, 0.5)
 }
 
 .menu-option:hover, a:active {
-  background-color: #8D8B87;
+  background-color: rgba(77, 90, 95, 0.7);
 }
 
 .main-page-sector {
