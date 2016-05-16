@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    
+    if (typeof $.cookie("last_menu") === 'undefined'){
+        $.cookie("last_menu", ".challenges-sector");
+    }
 
     var menu_option_overview  = $("#menu-option-overview");
     var menu_option_completed = $("#menu-option-completed");
@@ -8,9 +12,12 @@ $(document).ready(function () {
     var completed_sector  = $(".completed-sector");
     var challenges_sector  = $(".challenges-sector");
 
+    overview_sector.hide(0);
     challenges_sector.hide(0);
     $(".ranking-sector").hide(0);
     completed_sector.hide(0);
+
+    $($.cookie('last_menu')).show();
 
     menu_option_overview.click(function () {
 
@@ -26,7 +33,7 @@ $(document).ready(function () {
         active_section.fadeOut(100, function () {
             active_section.hide();
             overview_sector.fadeIn(100);
-
+            $.cookie("last_menu", ".overview-sector");
         });
     });
 
@@ -44,6 +51,7 @@ $(document).ready(function () {
         active_section.fadeOut(100, function () {
             active_section.hide();
             challenges_sector.fadeIn(100);
+            $.cookie("last_menu", ".challenges-sector");
         });
     });
 
@@ -62,5 +70,7 @@ $(document).ready(function () {
             active_section.hide();
             completed_sector.fadeIn(100);
         });
+
+        $.cookie("last_menu", ".completed-sector");
     });
 });
