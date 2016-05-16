@@ -8,7 +8,7 @@
         <a href="{% url 'auth_logout' %}">logout</a>
         <a href="{% url 'auth_password_change' %}">password change</a>
         {% if spierdon.level > 20 %}
-        <a href="{% url 'auth_password_change' %}">add challange</a>
+        <a href="{% url 'spierdon:add_challange' %}">add challange</a>
         {% endif %}
     </div>
 

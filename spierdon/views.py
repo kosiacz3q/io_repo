@@ -1,10 +1,10 @@
-from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render_to_response, get_object_or_404, render
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import SpierdonUser, Challenge, UserActiveChallenge
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
-
+from models import ChallangeForm, Challenge
 
 @login_required
 def index(request):
@@ -69,4 +69,15 @@ def rank(request):
 
 
 @login_required
-def addChallange:
+def addChallange(request):
+    if request.method == 'POST':
+        form = ChallangeForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return HttpResponseRedirect('/')
+            except:
+                pass
+    return render_to_response( 'addChallange.html', {'form': ChallangeForm()},
+                              context_instance=RequestContext(request))
+

@@ -72,4 +72,4 @@ class UserActiveChallenge(models.Model):
 class ChallangeForm(ModelForm):
     class Meta:
         model = Challenge
-        fields = ['name', 'description', 'experience', 'min level', 'max level', 'picture']
+        fields = ['name', 'description', 'exp', 'min_level', 'max_level', 'picture']
