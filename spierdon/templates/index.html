@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Welcome{% endblock %}
 
-
-
-
 {% block content %}
 
     <div class="message">
@@ -36,18 +33,17 @@
                         <form  action="{% url 'spierdon:complete_challenge' user_challenge.id %}" method="post">
                         {% csrf_token %}
 
-                                    <p>{{ user_challenge.name }}</p>
-                                    <p>{{ user_challenge.exp }}</p>
-                                    <p>{{ user_challenge.description }}</p>
+                                <img class="challenge-image" src="{{ user_challenge.picture.url }}">
 
+                                <p>{{ user_challenge.name }}</p>
+                                <p>{{ user_challenge.exp }}</p>
+                                <p>{{ user_challenge.description }}</p>
 
-                                <input type="submit" value="Complete" />
+                            <input type="submit" value="Complete" />
                         </form>
                     </div>
                 {% endfor %}
              </div>
-
-
         </div>
     </div>
 

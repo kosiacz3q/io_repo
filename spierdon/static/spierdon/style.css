@@ -207,6 +207,12 @@ a:hover, a:active {
   height: 150px;
 }
 
+.challenge-image {
+  width: 64px;
+  height: 64px;
+  border: double white;
+}
+
 /* Large Devices, Wide Screens */
 
 @media only screen and (max-width : 1500px) {
