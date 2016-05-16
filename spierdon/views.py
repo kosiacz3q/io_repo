@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, get_object_or_404, render
+from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import SpierdonUser, Challenge, UserActiveChallenge, ChallengeForm
@@ -15,9 +15,6 @@ def index(request):
     :param request: HttpRequest object
     :return: HttpResponse object with user and challenges info included
     """
-    # return render(request, 'index.html')
-
-
     user_challenges = Challenge.objects.filter(
         useractivechallenge__user__user__username=request.user.username,
         useractivechallenge__completed=False)
@@ -26,17 +23,16 @@ def index(request):
         useractivechallenge__user__user__username=request.user.username,
         useractivechallenge__completed=True)
 
-    spierdonUser = SpierdonUser.objects.get(user=request.user)
+    spierdon_user = SpierdonUser.objects.get(user=request.user)
 
     return render_to_response("index.html", {
         'user': request.user,
-        'spierdon': spierdonUser,
+        'spierdon': spierdon_user,
         'user_challenges': user_challenges,
         'user_completed_challenges': user_completed_challenges,
         'ranking': SpierdonUser.objects.order_by("-exp")[:5],
         'has_public': request.user.spierdonuser.public_level,
-    },
-                              RequestContext(request))
+    }, RequestContext(request))
 
 
 @login_required
@@ -60,7 +56,7 @@ def complete_challenge(request, challenge_id):
 @login_required
 def ranking(request):
     """
-    Create ranking of users. Works only if logged user shares its statistics to the public.
+    Create ranking of users. Work only if logged user shares its statistics to the public.
 
     :param request: HttpRequest object
     :return: HttpResponse object with ranking dict
@@ -73,6 +69,12 @@ def ranking(request):
 
 @login_required
 def add_challenge(request):
+    """
+    Create add challenge form.
+
+    :param request: HttpRequest object
+    :return: HttpResponseRedirect object
+    """
     if request.method == 'POST':
         form = ChallengeForm(request.POST)
         if form.is_valid():
@@ -87,9 +89,17 @@ def add_challenge(request):
 
 @login_required
 def get_challenges(request):
-    challenges=Challenge.objects.filter(min_level__lte=request.user.spierdonuser.level, max_level__gte=request.user.spierdonuser.level)
-    userChallenges = [i.challenge for i in UserActiveChallenge.objects.filter(user__exact=request.user.spierdonuser)]
-    challenges = [e for e in challenges if e not in userChallenges]
+    """
+    Get five random challenges available for current user (ie. those which are assigned to current user's level
+    and not already completed).
+
+    :param request: HttpRequest object
+    :return: HttpResponse object with drawn challenges
+    """
+    challenges = Challenge.objects.filter(min_level__lte=request.user.spierdonuser.level,
+                                          max_level__gte=request.user.spierdonuser.level)
+    user_challenges = [i.challenge for i in UserActiveChallenge.objects.filter(user__exact=request.user.spierdonuser)]
+    challenges = [e for e in challenges if e not in user_challenges]
     random.shuffle(challenges)
     return render_to_response('newChallenge.html', {
         "items": challenges[:5]
@@ -98,9 +108,13 @@ def get_challenges(request):
 
 @login_required
 def join_challenge(request, challenge_id):
+    """
+    Join user to challenge with given id.
+
+    :param request: HttpRequest object
+    :param challenge_id: id of challenge to which user wants to join
+    :return: HttpResponse of index() method
+    """
     _, created = UserActiveChallenge.objects.get_or_create(challenge=Challenge.objects.get(pk=challenge_id),
                                                            user=SpierdonUser.objects.get(user=request.user))
-    if created:
-        return index(request)
-    else:
-        return HttpResponse("You already joined to this challenge.")
+    return index(request) if created else HttpResponse("You already joined to this challenge.")
