@@ -18,7 +18,7 @@
             <td>{{ item.name }}</td>
             <td>{{ item.description }}</td>
             <td>{{ item.exp }}</td>
-            <td>{{ item.picture }}</td>
+            <td><img class="challenge-image" src="{{ item.picture.url }}"></td>
         </tr>
         {% endfor %}
     </table>
