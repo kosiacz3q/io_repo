@@ -66,8 +66,8 @@ class Challenge(models.Model):
 
 
 class UserActiveChallenge(models.Model):
-    challenge = models.OneToOneField(Challenge)
-    user = models.OneToOneField(SpierdonUser)
+    challenge = models.ForeignKey(Challenge, null=False)
+    user = models.ForeignKey(SpierdonUser, null=False)
     completed = models.BooleanField(default=False)
 
     def __str__(self):

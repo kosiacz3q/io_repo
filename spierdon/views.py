@@ -93,6 +93,9 @@ def get_challenges(request):
 
 @login_required
 def join_challenge(request, challenge_id):
-    UserActiveChallenge.objects.create(challenge=Challenge.objects.get(pk=challenge_id),
-                                       user=SpierdonUser.objects.get(user=request.user))
-    return index(request)
+    _, created = UserActiveChallenge.objects.get_or_create(challenge=Challenge.objects.get(pk=challenge_id),
+                                                           user=SpierdonUser.objects.get(user=request.user))
+    if created:
+        return index(request)
+    else:
+        return HttpResponse("You already joined to this challenge.")
