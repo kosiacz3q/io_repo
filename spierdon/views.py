@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response, get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import SpierdonUser, Challenge, UserActiveChallenge, ChallengeForm
+from .models import SpierdonUser, Challenge, UserActiveChallenge, ChallengeForm, addUserActiveChallenge
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 
@@ -90,4 +90,6 @@ def get_challenges(request):
 
 @login_required
 def join_challenge(request, challenge_id):
-    return HttpResponse(challenge_id)
+    spierdonUser = SpierdonUser.objects.get(user = request.user)
+    addUserActiveChallenge(spierdonUser, challenge_id)
+    return index(request)

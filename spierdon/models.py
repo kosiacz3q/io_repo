@@ -76,6 +76,12 @@ class UserActiveChallenge(models.Model):
         """
         return "%s %s (completed: %s)" % (self.user, self.challenge, self.completed)
 
+def addUserActiveChallenge(activeUser, challenge_id):
+    model = UserActiveChallenge()
+    model.challenge = Challenge.objects.get(pk=challenge_id)
+    model.user = activeUser
+    model.completed = False
+    model.save()
 
 class ChallengeForm(ModelForm):
     class Meta:
