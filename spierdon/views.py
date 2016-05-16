@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import SpierdonUser, Challenge, UserActiveChallenge, ChallengeForm
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
+import random
 
 
 @login_required
@@ -86,8 +87,12 @@ def add_challenge(request):
 
 @login_required
 def get_challenges(request):
+    challenges=Challenge.objects.filter(min_level__lte=request.user.spierdonuser.level, max_level__gte=request.user.spierdonuser.level)
+    userChallenges = [i.user for i in UserActiveChallenge.objects.filter(user__exact=request.user.spierdonuser)]
+    challenges = [e for e in challenges if e not in userChallenges]
+    random.shuffle(challenges)
     return render_to_response('newChallenge.html', {
-        "items": Challenge.objects.order_by("name")
+        "items": challenges[:5]
     })
 
 
