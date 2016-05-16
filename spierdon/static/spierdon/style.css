@@ -50,6 +50,13 @@ div.message {
     margin-bottom: 20px;
 }
 
+div.register {
+    text-align: center;
+    form {
+        margin: 20px;
+    }
+}
+
 a:link, a:visited {
     background-color: #CAC7C2;
     color: white;
