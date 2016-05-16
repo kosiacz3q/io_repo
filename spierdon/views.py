@@ -88,3 +88,6 @@ def newChallenge(request):
         "items": Challenge.objects.order_by("name")
     })
 
+@login_required
+def assign_challenge(request, challenge_id):
+    return HttpResponse(challenge_id)
