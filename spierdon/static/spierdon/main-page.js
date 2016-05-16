@@ -14,49 +14,53 @@ $(document).ready(function () {
 
     menu_option_overview.click(function () {
 
-        if (overview_sector.is("Visible"))
+        if (overview_sector.css('display') !== 'none')
             return;
 
         var active_section = challenges_sector;
 
-        if (completed_sector.is("Visible")){
+        if (completed_sector.css('display') !== 'none'){
               active_section = completed_sector;
         }
         
         active_section.fadeOut(100, function () {
-            overview_sector.fadeIn(100)
+            active_section.hide();
+            overview_sector.fadeIn(100);
+
         });
     });
 
     menu_option_challenges.click(function () {
 
-        if (challenges_sector.is("Visible"))
+        if (challenges_sector.css('display') !== 'none')
             return;
 
         var active_section = overview_sector;
 
-        if (completed_sector.is("Visible")){
+        if (completed_sector.css('display') !== 'none'){
               active_section = completed_sector;
         }
 
         active_section.fadeOut(100, function () {
-            challenges_sector.fadeIn(100)
+            active_section.hide();
+            challenges_sector.fadeIn(100);
         });
     });
 
     menu_option_completed.click(function () {
 
-        if (completed_sector.is("Visible"))
+        if (completed_sector.css('display') !== 'none')
             return;
 
         var active_section = overview_sector;
 
-        if (challenges_sector.is("Visible")) {
+        if (challenges_sector.css('display') !== 'none') {
             active_section = challenges_sector;
         }
 
-        active_section.fadeOut(100, function () {
-            completed_sector.fadeIn(100)
+        active_section.fadeOut(100, function (){
+            active_section.hide();
+            completed_sector.fadeIn(100);
         });
     });
 });
