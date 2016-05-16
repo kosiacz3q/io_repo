@@ -62,7 +62,24 @@
 
     <div class="ranking-sector">
         <div class="main-page-sector">
-        <p>ranking</p>
+            <table>
+                <tr>
+                    <th>Nr</th>
+                    <th>Name</th>
+                    <th>Level</th>
+                </tr>
+                {% for item in ranking %}
+                <tr>
+                    <th>{{ forloop.counter }}</th>
+                    {% if has_public %}
+                    <th>{{ item.user.username }}</th>
+                    {% else %}
+                    <th>-</th>
+                    {% endif %}
+                    <th>{{ item.level }}</th>
+                </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
 
