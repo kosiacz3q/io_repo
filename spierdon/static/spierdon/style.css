@@ -50,11 +50,16 @@ div.message {
     margin-bottom: 20px;
 }
 
+p.errors {
+        margin:0px 0px 0px;
+}
+
 div.register {
     text-align: center;
-    form {
-        margin: 20px;
-    }
+}
+
+div.register label {
+        margin: 10px 0px 0px;
 }
 
 a:link, a:visited {

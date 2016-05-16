@@ -5,48 +5,45 @@
 {% block content %}
 
 <div class="register">
-    {% if form.errors %}
-    <p class="errors">Please correct the errors below: {{ form.non_field_errors }}</p>
-    {% endif %}
-
     <h1>Create an account</h1>
 
     <form method="post" action="" class="wide">
       {% csrf_token %}
-      <p>
+      <p  >
         <label for="id_username">Username:</label>
+      </p>
         {% if form.username.errors %}
           <p class="errors">{{ form.username.errors.as_text }}</p>
          {% endif %}
-        <br>
         {{ form.username }}
-      </p>
+
       <p>
         <label for="id_email">Email address:</label>
+      </p>
         {% if form.email.errors %}
           <p class="errors">{{ form.email.errors.as_text }}</p>
         {% endif %}
-        <br>
         {{ form.email }}
-      </p>
       <p>
         <label for="id_password1">Password:</label>
+      </p>
         {% if form.password1.errors %}
           <p class="errors">{{ form.password1.errors.as_text }}</p>
         {% endif %}
-        <br>
         {{ form.password1 }}
-      </p>
       <p>
         <label for="id_password2">Confirm Password:</label>
+      </p>
         {% if form.password2.errors %}
           <p class="errors">{{ form.password2.errors.as_text }}</p>
         {% endif %}
-        <br>
         {{ form.password2 }}
-      </p>
       <p class="submit"><input type="submit" value="Register"></p>
     </form>
+  
+    {% if form.errors %}
+      <p class="errors">Please correct the errors below: {{ form.non_field_errors }}</p>
+    {% endif %}
 
   {% endblock %}
 
