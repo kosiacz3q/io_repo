@@ -27,8 +27,14 @@
 
     <div class="challenges-sector">
         <div class="main-page-sector">
-
-        <p>challenges</p>
+            <p>challenges</p>
+            {% for user_challenge in user_challenges %}
+                <div class="challenge-block">
+                    <p>{{ user_challenge.name }}</p>
+                    <p>{{ user_challenge.exp }}</p>
+                    <p>{{ user_challenge.description }}</p>
+                </div>
+            {% endfor %}
         </div>
     </div>
 

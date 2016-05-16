@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from math import log, floor
 from django.db.models.signals import post_save
-import os
 
 
 class SpierdonUser(models.Model):
@@ -55,3 +54,12 @@ class Challenge(models.Model):
 
     def __str__(self):
         return "%s (exp: %d)" % (self.name, self.exp)
+
+
+class UserActiveChallenge(models.Model):
+    challenge = models.ForeignKey(Challenge, default=0)
+    user = models.ForeignKey(SpierdonUser, default=0)
+    completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "%s %s (completed: %s)" % (self.user, self.challenge, self.completed)
