@@ -22,6 +22,7 @@ class SpierdonUser(models.Model):
         try:
             if self.exp:
                 temp = self.exp / first_level_exp
+                if temp < 1: return 0
                 temp = log(temp, 1.1)
                 temp = floor(temp)
                 return temp
