@@ -82,3 +82,9 @@ def addChallange(request):
     return render_to_response( 'addChallange.html', {'form': ChallangeForm()},
                               context_instance=RequestContext(request))
 
+@login_required
+def newChallenge(request):
+    return render_to_response('newChallenge.html', {
+        "items": Challenge.objects.order_by("name")
+    })
+

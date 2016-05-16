@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}New Challenge{% endblock %}
+{% block content %}
+<div class="newChallenge">
+    <H1>Select a new challenge</H1>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Exp</th>
+            <th>Picture</th>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <th>{{ item.name }}</th>
+            <th>{{ item.description }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

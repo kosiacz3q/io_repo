@@ -41,6 +41,9 @@
                         </form>
                     </div>
                 {% endfor %}
+                {% if user_challenges.count < 5 %}
+                    <a href="newChallenge">add challange</a>
+                {% endif %}
              </div>
         </div>
     </div>
