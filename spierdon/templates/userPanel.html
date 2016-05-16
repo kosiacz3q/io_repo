@@ -1,0 +1,16 @@
+
+<div class="userPanel">
+    <div class="userInformation">
+        <h1>{{user.username}}<br/>
+        {{spierdon.level|floatformat:"0"}} level</h1>
+    </div>
+    <div class="operations">
+        <a href="{% url 'auth_logout' %}">logout</a>
+        <a href="{% url 'auth_password_change' %}">password change</a>
+        {% if spierdon.level > 20 %}
+        <a href="{% url 'auth_password_change' %}">add challange</a>
+        {% endif %}
+    </div>
+
+</div>
+

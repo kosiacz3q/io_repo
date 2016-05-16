@@ -4,9 +4,7 @@
 {% block content %}
 
     <div class="message">
-        <h1>Hello, {{ user.name }}</h1>
-        <a href="{% url 'auth_logout' %}">Logout</a>
-        <a href="pass">Edit password</a>
+        <h1>Spierdon</h1>
     </div>
 
     <div class="horizontal-menu">
@@ -19,7 +17,7 @@
     </div>
 
     <div class="main-page-sector overview-sector">
-        <p>Level {{ spierdon.level }} (exp: {{ spierdon.exp }})</p>
+        {% include "userPanel.html" %}
     </div>
 
     <div class="challenges-sector">
