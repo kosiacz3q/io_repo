@@ -23,9 +23,11 @@ def index(request):
         useractivechallenge__user__user__username=request.user.username,
         useractivechallenge__completed=True)
 
+    spierdonUser = SpierdonUser.objects.get(user = request.user)
+
     return render_to_response("index.html", {
         'user': request.user,
-        'spierdon': request.user.spierdonuser,
+        'spierdon': spierdonUser,
         'user_challenges': user_challenges,
         'user_completed_challenges': user_completed_challenges,
         },
@@ -49,3 +51,7 @@ def rank(request):
         "items": SpierdonUser.objects.order_by("-exp"),
         "has_public": request.user.spierdonuser.public_level,
     })
+
+
+@login_required
+def addChallange:

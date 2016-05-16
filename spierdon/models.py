@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from math import log, floor
 from django.db.models.signals import post_save
-
+from django.forms import ModelForm
 
 class SpierdonUser(models.Model):
     user = models.OneToOneField(User)
@@ -13,18 +13,21 @@ class SpierdonUser(models.Model):
 
     @property
     def level(self):
-        if self.exp < 0:
+        if self.exp < 0 and self.exp != 0:
             raise ValidationError(
                 ('%(value) is less than 0'),
                 params={'value': self.exp}
             )
         first_level_exp = 50
-        if self.exp:
-            temp = self.exp / first_level_exp
-            temp = log(temp, 1.1)
-            temp = floor(temp)
-            return temp
-        else:
+        try:
+            if self.exp:
+                temp = self.exp / first_level_exp
+                temp = log(temp, 1.1)
+                temp = floor(temp)
+                return temp
+            else:
+                return 0
+        except:
             return 0
 
 
@@ -63,3 +66,10 @@ class UserActiveChallenge(models.Model):
 
     def __str__(self):
         return "%s %s (completed: %s)" % (self.user, self.challenge, self.completed)
+
+
+
+class ChallangeForm(ModelForm):
+    class Meta:
+        model = Challenge
+        fields = ['name', 'description', 'experience', 'min level', 'max level', 'picture']
