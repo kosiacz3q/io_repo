@@ -6,6 +6,7 @@
 
     <table>
         <tr>
+            <th>Add Challenge</th>
             <th>Name</th>
             <th>Description</th>
             <th>Exp</th>
@@ -13,8 +14,11 @@
         </tr>
         {% for item in items %}
         <tr>
+            <th><a href="">+</a></th>
             <th>{{ item.name }}</th>
             <th>{{ item.description }}</th>
+            <th>{{ item.exp }}</th>
+            <th>{{ item.picture }}</th>
         </tr>
         {% endfor %}
     </table>
