@@ -123,4 +123,4 @@ def join_challenge(request, challenge_id):
     """
     _, created = UserActiveChallenge.objects.get_or_create(challenge=Challenge.objects.get(pk=challenge_id),
                                                            user=SpierdonUser.objects.get(user=request.user))
-    return index(request) if created else HttpResponse("You already joined to this challenge.")
+    return HttpResponseRedirect(reverse('spierdon:index')) if created else HttpResponse("You already joined to this challenge.")
