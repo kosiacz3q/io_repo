@@ -257,6 +257,21 @@ a:hover, a:active {
   background-color: rgba(77, 90, 95, .7);
   padding: 10px;
   align-content: center;
+  text-align: center;
+  color: white;
+}
+
+.challenge-detailed-overview input {
+    border: none;
+    background-color: #909090;
+    color: white;
+    padding: 4px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+.challenge-detailed-overview input:hover, .challenge-detailed-overview input:active {
+    background-color: #4D4D4D;
 }
 
 /* Large Devices, Wide Screens */
