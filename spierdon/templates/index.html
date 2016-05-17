@@ -22,8 +22,6 @@
 
     <div class="challenges-sector">
         <div class="main-page-sector">
-            <p>Challenges</p>
-
             <div class="challenges-row">
 
                 {% for user_challenge in user_challenges %}
@@ -62,10 +60,10 @@
 
     <div class="completed-sector">
         <div class="main-page-sector ">
-            <p>Completed</p>
             <div class="challenges-row">
                     {% for user_completed_challenge in user_completed_challenges %}
                         <div class="challenge-block">
+                            <img class="challenge-image" src="{{ user_completed_challenge.picture.url }}">
                             <p>{{ user_completed_challenge.name }}</p>
                             <p>{{ user_completed_challenge.exp }}</p>
                             <p>{{ user_completed_challenge.description }}</p>
@@ -77,7 +75,6 @@
 
     <div class="ranking-sector">
         <div class="main-page-sector">
-            <p>Ranking</p>
             <table id="one-column-emphasis">
                 <tr>
                     <th>Nr</th>

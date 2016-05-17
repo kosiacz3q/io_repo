@@ -212,6 +212,7 @@ a:hover, a:active {
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
+  padding-top: 10px;
 }
 
 .challenges-row {
@@ -226,6 +227,21 @@ a:hover, a:active {
   background-color: rgba(77, 90, 95, .7);
   padding: 15px;
   height: 150px;
+  color: white;
+}
+
+.challenge-block input {
+    border: none;
+    background-color: #909090;
+    color: white;
+    padding: 4px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.challenge-block input:hover, .challenge-block input:active {
+    background-color: #4D4D4D;
 }
 
 .challenge-image {
