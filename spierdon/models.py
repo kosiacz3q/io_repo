@@ -55,7 +55,7 @@ class Challenge(models.Model):
     exp = models.IntegerField(null=False, default=10)
     min_level = models.IntegerField(null=False, default=0)
     max_level = models.IntegerField(null=False, default=9999)
-    picture = models.ImageField(upload_to='upload/', default='media/default.jpg')
+    picture = models.ImageField(upload_to='upload/', default='default.jpg')
 
     def __str__(self):
         """
