@@ -250,6 +250,15 @@ a:hover, a:active {
   border: double white;
 }
 
+.challenge-detailed-overview{
+  width: 100%;
+  height: auto;
+  margin: 10px auto 10px auto;
+  background-color: rgba(77, 90, 95, .7);
+  padding: 10px;
+  align-content: center;
+}
+
 /* Large Devices, Wide Screens */
 
 @media only screen and (max-width : 1500px) {

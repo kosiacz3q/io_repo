@@ -26,24 +26,36 @@
 
                 {% for user_challenge in user_challenges %}
                     <div class="challenge-block">
-                        <form  action="{% url 'spierdon:complete_challenge' user_challenge.id %}" method="post">
-                        {% csrf_token %}
 
-                                <img class="challenge-image" src="{{ user_challenge.picture.url }}">
+                        <img class="challenge-image" src="{{ user_challenge.picture.url }}">
 
-                                <p>{{ user_challenge.name }}</p>
-                                <p>{{ user_challenge.exp }}</p>
-                                <p>{{ user_challenge.description }}</p>
+                        <p>{{ user_challenge.name }}</p>
+                        <p>{{ user_challenge.exp }}</p>
 
-                            <input type="submit" value="Complete" />
-                        </form>
+                        <input id="reveal_{{ user_challenge.id }}" class="challenge-overview-button" type="button" value="More">
+
                     </div>
                 {% endfor %}
-                {% if user_challenges.count < 5 %}
+                {% if user_challenges.count < 4 %}
                     <a href="{% url 'spierdon:get_challenges' %}">add challange</a>
                 {% endif %}
              </div>
         </div>
+
+        {% for user_challenge in user_challenges %}
+            <div id="overview_reveal_{{ user_challenge.id }}" class="challenge-detailed-overview">
+                <form  action="{% url 'spierdon:complete_challenge' user_challenge.id %}" method="post">
+                    {% csrf_token %}
+                    <img class="challenge-image" src="{{ user_challenge.picture.url }}">
+
+                    <p>{{ user_challenge.name }}</p>
+                    <p>{{ user_challenge.exp }}</p>
+                    <p>{{ user_challenge.description }}</p>
+                    <input type="submit" value="Complete" />
+                </form>
+            </div>
+        {% endfor %}
+
     </div>
 
     <div class="completed-sector">
