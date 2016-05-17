@@ -50,6 +50,9 @@ def complete_challenge(request, challenge_id):
     challenge_to_complete.completed = True
     challenge_to_complete.save()
 
+    challenge_to_complete.user.exp += challenge_to_complete.challenge.exp;
+    challenge_to_complete.user.save();
+
     return HttpResponseRedirect(reverse('spierdon:index'))
 
 
