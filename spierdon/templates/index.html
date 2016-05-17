@@ -93,6 +93,9 @@
                 </tr>
                 {% endfor %}
             </table>
+            {% if ranking.count >= 4 %}
+                <a href="ranking">More</a>
+            {% endif %}
         </div>
     </div>
 

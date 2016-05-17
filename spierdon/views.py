@@ -30,7 +30,7 @@ def index(request):
         'spierdon': spierdon_user,
         'user_challenges': user_challenges,
         'user_completed_challenges': user_completed_challenges,
-        'ranking': SpierdonUser.objects.order_by("-exp")[:5],
+        'ranking': SpierdonUser.objects.order_by("-exp")[:4],
         'has_public': request.user.spierdonuser.public_level,
     }, RequestContext(request))
 

@@ -206,7 +206,7 @@ a:hover, a:active {
 
 .main-page-sector {
   width: 100%;
-  height: 300px;
+  min-height: 300px;
   background-color: rgba(147, 160, 165, .5);
   position: relative;
   text-align: center;
