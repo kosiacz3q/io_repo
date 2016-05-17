@@ -114,6 +114,11 @@ $(document).ready(function () {
 
     $(".challenge-overview-button").click(function () {
 
+        if ($("#overview_" + this.id).css('display') !== 'none'){
+            $("#overview_" + this.id).fadeOut(100);
+            return;
+        }
+
         var revealed = false;
 
         [].forEach.call($(".challenge-detailed-overview") , function(v,i,a) {
