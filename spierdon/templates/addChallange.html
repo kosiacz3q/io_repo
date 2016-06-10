@@ -1,13 +1,16 @@
-{% extends "base.html" %}
-{% block title %}Welcome{% endblock %}
+{% extends "form.html" %}
+{% block title %}Add challenge{% endblock %}
 
 {% block content %}
 
-<div class="form">
-<form method="Post">
+<h2 class="form-signin-heading">Add challenge</h2>
+{{ form.media }}
+<form class="form-signin" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
+    {% load bootstrap %}
+    <p class="help-block">Some text here.</p>
+    {{ form|bootstrap }}
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
 </form>
-</div>
+
 {% endblock %}

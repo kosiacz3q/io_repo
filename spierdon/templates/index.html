@@ -1,83 +1,66 @@
-{% extends "base.html" %}
+{% extends "full.html" %}
 {% block title %}Welcome{% endblock %}
 
 {% block content %}
 
-    <div class="message">
-        <h1>Spierdon</h1>
-    </div>
+{% comment %}
+<div class="message">
+    <h1>Spierdon</h1>
+</div>
 
-    <div class="horizontal-menu">
-        <table id="horizontal-menu-table">
-            <tr><label id="menu-option-overview" class="menu-option">Overview</label></tr>
-            <tr><label id="menu-option-challenges" class="menu-option">Challenges</label></tr>
-            <tr><label id="menu-option-completed" class="menu-option">Completed</label></tr>
-            <tr><label id="menu-option-ranking" class="menu-option">Ranking</label></tr>
-        </table>
-    </div>
+<div class="horizontal-menu">
+    <table id="horizontal-menu-table">
+        <tr><label id="menu-option-overview" class="menu-option">Overview</label></tr>
+        <tr><label id="menu-option-challenges" class="menu-option">Challenges</label></tr>
+        <tr><label id="menu-option-completed" class="menu-option">Completed</label></tr>
+        <tr><label id="menu-option-ranking" class="menu-option">Ranking</label></tr>
+    </table>
+</div>
 
-    <div class="main-page-sector overview-sector">
-        {% include "userPanel.html" %}
-    </div>
+<div class="main-page-sector overview-sector">
+    {% include "userPanel.html" %}
+</div>
 
-    <div class="challenges-sector">
-        <div class="main-page-sector">
-            <div class="challenges-row">
+{% endcomment %}
 
-                {% for user_challenge in user_challenges %}
-                    <div class="challenge-block">
-
-                        <img class="challenge-image" src="{{ user_challenge.picture.url }}">
-
-                        <p>{{ user_challenge.name }}</p>
-                        <p>{{ user_challenge.exp }}</p>
-
-                        <input id="reveal_{{ user_challenge.id }}" class="challenge-overview-button" type="button" value="More">
-
-                    </div>
-                {% endfor %}
-                {% if user_challenges.count < 4 %}
-                    <a href="{% url 'spierdon:get_challenges' %}">add challange</a>
-                {% endif %}
-             </div>
-        </div>
-
-        {% for user_challenge in user_challenges %}
-            <div id="overview_reveal_{{ user_challenge.id }}" class="challenge-detailed-overview">
-                <form  action="{% url 'spierdon:complete_challenge' user_challenge.id %}" method="post">
-                    {% csrf_token %}
-                    <img class="challenge-image" src="{{ user_challenge.picture.url }}">
-
-                    <p>{{ user_challenge.name }}</p>
-                    <p>{{ user_challenge.exp }}</p>
-                    <p>{{ user_challenge.description }}</p>
-                    <input type="submit" value="Complete" />
-                </form>
-            </div>
-        {% endfor %}
-
-    </div>
-
-    <div class="completed-sector">
-        <div class="main-page-sector ">
-            <div class="challenges-row">
-                    {% for user_completed_challenge in user_completed_challenges %}
-                        <div class="challenge-block">
-                            <img class="challenge-image" src="{{ user_completed_challenge.picture.url }}">
-                            <p>{{ user_completed_challenge.name }}</p>
-                            <p>{{ user_completed_challenge.exp }}</p>
-                            <p>{{ user_completed_challenge.description }}</p>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="well well-lg" style="background-color: white;">
+            <div class="row">
+                {% comment %}
+                <div class="col-sm-6 col-md-4">
+                    <img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive"/>
+                </div>
+                {% endcomment %}
+                <div class="col-sm-6 col-md-8">
+                    <h4>Hi, {{ user }}!</h4>
+                    <p>
+                        Level: {{spierdon.level|floatformat:"0"}}
+                        <br/>
+                        Exp: XXXX
+                        <br/>
+                        XX exp to next lvl
+                    </p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                             aria-valuemax="100" style="width: 60%;">
+                            <span class="sr-only">60% Complete</span>
                         </div>
-                    {% endfor %}
+                    </div>
+                    <a role="button" class="btn btn-primary" href="{% url 'spierdon:get_challenges' %}">
+                        Available challenges
+                    </a>
+                    <a role="button" class="btn btn-default" href="{% url 'spierdon:add_challange' %}">Add new</a>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="ranking-sector">
-        <div class="main-page-sector">
-            <table id="one-column-emphasis">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="well well-lg" style="background-color: white;">
+            <h4>Top 5</h4>
+            <table class="table table-condensed">
                 <tr>
-                    <th>Nr</th>
+                    <th>#</th>
                     <th>Name</th>
                     <th>Level</th>
                 </tr>
@@ -94,12 +77,113 @@
                 {% endfor %}
             </table>
             {% if ranking.count >= 4 %}
-                <a href="ranking">More</a>
+            <a href="ranking">More</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<h3>Joined challenges</h3>
+<div class="row">
+    {% for user_challenge in user_challenges %}
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img src="{{ user_challenge.picture.url }}">
+            <div class="caption">
+                <h3>{{ user_challenge.name }}</h3>
+                <p>Exp: {{ user_challenge.exp }}</p>
+                <p>{{ user_challenge.description }}</p>
+                        <form action="{% url 'spierdon:complete_challenge' user_challenge.id %}" method="post">
+            {% csrf_token %}
+<button class="btn btn-default" role="button" type="submit">Complete</button>
+        </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% comment %}
+
+</div>
+<div class="challenges-sector">
+    <div class="main-page-sector">
+        <div class="challenges-row">
+
+            {% for user_challenge in user_challenges %}
+            <div class="challenge-block">
+
+                <img class="challenge-image" src="{{ user_challenge.picture.url }}">
+
+                <p>{{ user_challenge.name }}</p>
+                <p>{{ user_challenge.exp }}</p>
+
+                <input id="reveal_{{ user_challenge.id }}" class="challenge-overview-button" type="button" value="More">
+
+            </div>
+            {% endfor %}
+            {% if user_challenges.count < 4 %}
+            <a href="{% url 'spierdon:get_challenges' %}">add challange</a>
             {% endif %}
         </div>
     </div>
 
+    {% for user_challenge in user_challenges %}
+    <div id="overview_reveal_{{ user_challenge.id }}" class="challenge-detailed-overview">
+        <form action="{% url 'spierdon:complete_challenge' user_challenge.id %}" method="post">
+            {% csrf_token %}
+            <img class="challenge-image" src="{{ user_challenge.picture.url }}">
 
+            <p>{{ user_challenge.name }}</p>
+            <p>{{ user_challenge.exp }}</p>
+            <p>{{ user_challenge.description }}</p>
+            <input type="submit" value="Complete"/>
+        </form>
+    </div>
+    {% endfor %}
+
+</div>
+
+<div class="completed-sector">
+    <div class="main-page-sector ">
+        <div class="challenges-row">
+            {% for user_completed_challenge in user_completed_challenges %}
+            <div class="challenge-block">
+                <img class="challenge-image" src="{{ user_completed_challenge.picture.url }}">
+                <p>{{ user_completed_challenge.name }}</p>
+                <p>{{ user_completed_challenge.exp }}</p>
+                <p>{{ user_completed_challenge.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="ranking-sector">
+    <div class="main-page-sector">
+        <table id="one-column-emphasis">
+            <tr>
+                <th>Nr</th>
+                <th>Name</th>
+                <th>Level</th>
+            </tr>
+            {% for item in ranking %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                {% if has_public %}
+                <td>{{ item.user.username }}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                <td>{{ item.level }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% if ranking.count >= 4 %}
+        <a href="ranking">More</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endcomment %}
 {% endblock %}
 
 

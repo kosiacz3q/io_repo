@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import SpierdonUser, Challenge, UserActiveChallenge, ChallengeForm
@@ -25,13 +25,24 @@ def index(request):
 
     spierdon_user = SpierdonUser.objects.get(user=request.user)
 
-    return render_to_response("index.html", {
+    return render(request, "index.html", {
         'user': request.user,
         'spierdon': spierdon_user,
         'user_challenges': user_challenges,
         'user_completed_challenges': user_completed_challenges,
         'ranking': SpierdonUser.objects.order_by("-exp")[:4],
         'has_public': request.user.spierdonuser.public_level,
+    }, RequestContext(request))
+
+
+@login_required
+def get_completed(request):
+    items = Challenge.objects.filter(
+        useractivechallenge__user__user__username=request.user.username,
+        useractivechallenge__completed=True)
+
+    return render(request, "completed.html", {
+        'items': items,
     }, RequestContext(request))
 
 
@@ -64,7 +75,7 @@ def ranking(request):
     :param request: HttpRequest object
     :return: HttpResponse object with ranking dict
     """
-    return render_to_response("ranking.html", {
+    return render(request, "ranking.html", {
         "items": SpierdonUser.objects.order_by("-exp"),
         "has_public": request.user.spierdonuser.public_level,
     })
@@ -89,8 +100,8 @@ def add_challenge(request):
                 return HttpResponseRedirect('/')
             except:
                 pass
-    return render_to_response('addChallange.html', {'form': ChallengeForm()},
-                              context_instance=RequestContext(request))
+    return render(request, 'addChallange.html', {'form': ChallengeForm()},
+                  context_instance=RequestContext(request))
 
 
 @login_required
@@ -107,7 +118,7 @@ def get_challenges(request):
     user_challenges = [i.challenge for i in UserActiveChallenge.objects.filter(user__exact=request.user.spierdonuser)]
     challenges = [e for e in challenges if e not in user_challenges]
     random.shuffle(challenges)
-    return render_to_response('newChallenge.html', {
+    return render(request, 'newChallenge.html', {
         "items": challenges[:5]
     })
 
@@ -123,4 +134,5 @@ def join_challenge(request, challenge_id):
     """
     _, created = UserActiveChallenge.objects.get_or_create(challenge=Challenge.objects.get(pk=challenge_id),
                                                            user=SpierdonUser.objects.get(user=request.user))
-    return HttpResponseRedirect(reverse('spierdon:index')) if created else HttpResponse("You already joined to this challenge.")
+    return HttpResponseRedirect(reverse('spierdon:index')) if created else HttpResponse(
+        "You already joined to this challenge.")

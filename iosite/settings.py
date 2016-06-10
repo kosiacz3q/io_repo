@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'registration',
+    'bootstrap3',
+    'widget_tweaks',
+    'bootstrap3_datetime',
+    'bootstrapform',
     'spierdon',
 ]
 

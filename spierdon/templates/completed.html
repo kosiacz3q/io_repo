@@ -1,0 +1,23 @@
+{% extends "full.html" %}
+{% block title %}Completed{% endblock %}
+
+{% block content %}
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Exp</th>
+        <th>Picture</th>
+    </tr>
+    {% for item in items %}
+    <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.exp }}</td>
+        <td><img class="challenge-image" src="{{ item.picture.url }}"></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
