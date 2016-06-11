@@ -32,7 +32,7 @@ def index(request):
         'user_completed_challenges': user_completed_challenges,
         'ranking': SpierdonUser.objects.order_by("-exp")[:4],
         'has_public': request.user.spierdonuser.public_level,
-    }, RequestContext(request))
+    })
 
 
 @login_required
@@ -75,6 +75,10 @@ def ranking(request):
     :param request: HttpRequest object
     :return: HttpResponse object with ranking dict
     """
+    if request.method == 'POST':
+        request.user.spierdonuser.public_level = not request.user.spierdonuser.public_level
+        request.user.spierdonuser.save()
+
     return render(request, "ranking.html", {
         "items": SpierdonUser.objects.order_by("-exp"),
         "has_public": request.user.spierdonuser.public_level,

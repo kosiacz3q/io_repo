@@ -3,25 +3,31 @@
 {% block content %}
 {% if has_public %}
 
-    <H1>Ranking</H1>
-<div class="ranking">
-    <table id="one-column-emphasis">
-        <tr>
-            <th>Nr</th>
-            <th>Name</th>
-            <th>Level</th>
-        </tr>
-        {% for item in items %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>{{ item.user.username }}</td>
-            <td>{{ item.level }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
+<h2>Ranking</h2>
+<table class="table table-condensed">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Level</th>
+    </tr>
+    {% for item in items %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ item.user.username }}</td>
+        <td>{{ item.level }}</td>
+    </tr>
+    {% endfor %}
+</table>
 {% else %}
-<p>Unfortunately, current ranking is available only for users who published their level.</p>
+<h2>Error</h2>
+<form method="post">
+    {% csrf_token %}
+    <p class="help-block">
+        Unfortunately, current ranking is available only for users who published their level.
+    </p>
+    <button class="btn btn-primary" type="submit">Publish</button>
+</form>
+
 {% endif %}
 {% endblock %}
 

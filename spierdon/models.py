@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-from math import log, floor
+from math import log, floor, ceil
 from django.db.models.signals import post_save
 from django.forms import ModelForm
 
@@ -11,25 +11,37 @@ class SpierdonUser(models.Model):
     exp = models.IntegerField(null=False, default=0)
     public_level = models.BooleanField(default=False)
 
+    """
+    Calculates spierdon's level based on experience value.
+    """
+
+    def compute_level(self):
+        points = 0
+        for level in range(1, 100):
+            diff = int(level + 100 * pow(2, float(level) / 7))
+            previous_points = points / 4
+            points += diff
+            # print("Level %d = %d" % (level + 1, points / 4))
+            if points / 4 > self.exp:
+                return {
+                    "current": level,
+                    "previous": previous_points,
+                    "next": ceil(points / 4),
+                }
+
     @property
     def level(self):
-        """
-        Calculates spierdon's level based on experience value.
-        """
-        if self.exp < 0 and self.exp != 0:
-            raise ValidationError('%(value) is less than 0', params={'value': self.exp})
-        first_level_exp = 50
-        try:
-            if not self.exp:
-                return 0
-            temp = self.exp / first_level_exp
-            if temp < 1:
-                return 0
-            temp = log(temp, 1.1)
-            temp = floor(temp)
-            return temp
-        except:
-            return 0
+        return self.compute_level()["current"]
+
+    @property
+    def remaining(self):
+        level_info = self.compute_level()
+        return level_info["next"] - self.exp
+
+    @property
+    def percent(self):
+        level_info = self.compute_level()
+        return ceil((self.exp - level_info["previous"]) / (level_info["next"] - level_info["previous"])*100)
 
     def __str__(self):
         """
