@@ -19,7 +19,7 @@
     {% endfor %}
 </table>
 {% else %}
-<h2>Error</h2>
+<h2 class="text-info">Unavailable</h2>
 <form method="post">
     {% csrf_token %}
     <p class="help-block">
