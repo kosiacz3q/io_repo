@@ -9,6 +9,7 @@
     <title>{% block title %}{% endblock %}</title>
     {% bootstrap_css %}
     {% bootstrap_javascript jquery=1 %}
+    <link rel="stylesheet" type="text/css" href="{% static 'spierdon/style.css' %}" />
     {% block head %}{% endblock %}
 </head>
 <body>
@@ -16,7 +17,7 @@
     <div class="container-fluid">
         {% block navbar %}
         <div class="navbar-header">
-            <a class="navbar-brand" href="{% url 'spierdon:index' %}">SPIERDOLEX</a>
+            <a class="navbar-brand" href="{% url 'spierdon:index' %}">SPIERDON</a>
         </div>
         {% endblock %}
     </div><!-- /.container-fluid -->
