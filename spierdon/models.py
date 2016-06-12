@@ -68,6 +68,7 @@ class Challenge(models.Model):
     min_level = models.IntegerField(null=False, default=0)
     max_level = models.IntegerField(null=False, default=9999)
     picture = models.ImageField(upload_to='upload/', default='default.jpg')
+    blocked=models.BooleanField(default=False, null=False)
 
     def __str__(self):
         """
@@ -81,6 +82,7 @@ class UserActiveChallenge(models.Model):
     challenge = models.ForeignKey(Challenge, null=False)
     user = models.ForeignKey(SpierdonUser, null=False)
     completed = models.BooleanField(default=False)
+    blocked = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         """

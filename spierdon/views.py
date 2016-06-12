@@ -17,11 +17,8 @@ def index(request):
     """
     user_challenges = Challenge.objects.filter(
         useractivechallenge__user__user__username=request.user.username,
-        useractivechallenge__completed=False)
-
-    user_completed_challenges = Challenge.objects.filter(
-        useractivechallenge__user__user__username=request.user.username,
-        useractivechallenge__completed=True)
+        useractivechallenge__completed=False,
+        useractivechallenge__blocked=False)
 
     spierdon_user = SpierdonUser.objects.get(user=request.user)
 
@@ -29,7 +26,6 @@ def index(request):
         'user': request.user,
         'spierdon': spierdon_user,
         'user_challenges': user_challenges,
-        'user_completed_challenges': user_completed_challenges,
         'ranking': SpierdonUser.objects.order_by("-exp")[:4],
         'has_public': request.user.spierdonuser.public_level,
     })
@@ -39,7 +35,7 @@ def index(request):
 def get_completed(request):
     items = Challenge.objects.filter(
         useractivechallenge__user__user__username=request.user.username,
-        useractivechallenge__completed=True)
+        useractivechallenge__completed=True, useractivechallenge__blocked=False)
 
     return render(request, "completed.html", {
         'items': items,
@@ -109,6 +105,26 @@ def add_challenge(request):
 
 
 @login_required
+def block_challenge(request, challenge_id):
+    """
+    Votes for block challenge form.
+
+    :param request: HttpRequest object
+    :return: HttpResponseRedirect object
+    """
+    challenge_to_block = get_object_or_404(UserActiveChallenge, challenge__pk=challenge_id)
+
+    challenge_to_block.blocked = True
+    challenge_to_block.save()
+
+    if (UserActiveChallenge.objects.filter(pk=challenge_id, blocked=True).count() > 1):
+        challenge_to_block.challenge.blocked = True
+        challenge_to_block.challenge.save()
+
+    return HttpResponseRedirect(reverse('spierdon:index'))
+
+
+@login_required
 def get_challenges(request):
     """
     Get five random challenges available for current user (ie. those which are assigned to current user's level
@@ -118,7 +134,8 @@ def get_challenges(request):
     :return: HttpResponse object with drawn challenges
     """
     challenges = Challenge.objects.filter(min_level__lte=request.user.spierdonuser.level,
-                                          max_level__gte=request.user.spierdonuser.level)
+                                          max_level__gte=request.user.spierdonuser.level,
+                                          blocked=False)
     user_challenges = [i.challenge for i in UserActiveChallenge.objects.filter(user__exact=request.user.spierdonuser)]
     challenges = [e for e in challenges if e not in user_challenges]
     random.shuffle(challenges)
