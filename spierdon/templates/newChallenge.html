@@ -18,7 +18,7 @@
                 <td style="padding: 10px">{{ item.name }}</td>
                 <td style="padding: 10px">{{ item.description }}</td>
                 <td style="padding: 10px">{{ item.exp }}</td>
-                <td style="padding: 10px"><img class="challenge-image" src="{{ item.picture.url }}"></td>
+                <td style="padding: 10px"><img class="challenge-image" src="{{ item.picture.url }}" style="width: 100px;"></td>
                 <td><a href="{% url 'spierdon:join_challenge' item.id %}">Join</a></td>
             </tr>
             {% endfor %}
