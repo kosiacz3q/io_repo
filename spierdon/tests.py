@@ -1,5 +1,5 @@
 from django.test import TestCase
-from models import SpierdonUser
+from .models import SpierdonUser
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 
@@ -45,19 +45,18 @@ class SpierdonUserTest(TestCase):
         user = User.objects.get(username='test')
         sUser = SpierdonUser.objects.get(user=user)
         level = sUser.level
-        self.assertEqual(level, 24)
+        self.assertEqual(level, 11)
 
-    def testSpierdonGetLevelMethodFail(self):
+    def testSpierdonGetLevelMethodPositive(self):
         """
-        Check if SpierdonUser.level() method correctly handles negative values.
+        Check if SpierdonUser.level() method correctly handles positive value.
 
         :return: result of test
         """
         user = User.objects.get(username='test')
         sUser = SpierdonUser.objects.get(user=user)
-        sUser.exp = -100;
-        with self.assertRaises(ValidationError):
-            level = sUser.level
+        sUser.exp = 100;
+        self.assertEqual(sUser.level, 4)
 
     def testSpierdonGetLevelMethodZero(self):
         """
@@ -68,4 +67,4 @@ class SpierdonUserTest(TestCase):
         user = User.objects.get(username='test')
         sUser = SpierdonUser.objects.get(user=user)
         sUser.exp = 0;
-        self.assertEqual(sUser.level, 0)
+        self.assertEqual(sUser.level, 1)
